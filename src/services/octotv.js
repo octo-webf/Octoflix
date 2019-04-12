@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const OCTOTV_API = 'https://tv.octo.com/api/v2'
+  const OCTOTV_API = 'https://tv.octo.com/api/v2'
 
 const getDefaultVideos = (video) => {
 
