@@ -1,6 +1,11 @@
 <template>
   <div>
-    <video v-if="!error && !loading" controls :src="video[video.names[0]].html5"></video>
+    <div v-if="!error && !loading" >
+      <div id="video_overlays"></div>
+      <div>
+        <video controls :src="video[video.names[0]].html5"></video>
+      </div>
+    </div>
     <div v-else> Video non disponible</div>
   </div>
 </template>
@@ -30,5 +35,16 @@ export default {
 </script>
 
 <style scoped>
-
+  video {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  #video_overlays {
+    float:right;
+    width:200px;
+    height:200px;
+    opacity: 0.6;
+    background-color:#000;
+    z-index:300000;
+  }
 </style>
