@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.octo.octoflix.pwa",
+               "sha256_cert_fingerprints": ["CA:26:22:07:1A:E5:12:42:C7:D9:FD:18:2D:40:D0:8B:B7:F8:7B:6A:42:63:B8:FF:F5:51:38:54:9B:9A:E7:3B"] }
+}]
