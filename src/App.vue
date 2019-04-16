@@ -1,10 +1,8 @@
 <template>
   <div id="app">
     <header>
-      <span class="logo">Octoflix</span>
-      <nav id="nav">
-        <router-link to="/">Parcourir</router-link>
-      </nav>
+      <router-link to="/"><span class="logo">Octoflix</span></router-link>
+      <nav-bar />
     </header>
     <div class="headline">Votre catégorie</div>
     <router-view/>
@@ -19,20 +17,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 0 0 0 5%;
-  float: left;
-  line-height: 3em;
-}
-#nav a {
-  font-weight: bold;
-  font-size: 1.2em;
-  text-decoration: none;
-  color: white;
-}
-#nav a.router-link-exact-active {
-  color: #e50914;
 }
 .headline {
   padding-top: 12%;
@@ -51,8 +35,22 @@
 header {
   display: block;
   height: 50px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background:rgba(1, 1, 1, 0.8); ;
 }
 html{
   background-color: black;
 }
 </style>
+<script>
+import NavBar from '@/components/NavBar.vue'
+export default {
+  name: 'app',
+  components: {
+    NavBar
+  }
+}
+</script>
