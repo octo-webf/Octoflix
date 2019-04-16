@@ -2,32 +2,32 @@
 
 ## Project setup
 ```
-yarn install
+yarn
 ```
 
-### Compiles and hot-reloads for development
+### Compile and hot-reload for development
 ```
-yarn run serve
+yarn serve
 ```
 
-### Compiles and minifies for production
+### Compile and minify for production
 ```
-yarn run build
+yarn build
 ```
 
 ### Run your tests
 ```
-yarn run test
+yarn test
 ```
 
-### Lints and fixes files
+### Lint and fix files
 ```
-yarn run lint
+yarn lint
 ```
 
 ### Run your unit tests
 ```
-yarn run test:unit
+yarn test:unit
 ```
 
 ### Customize configuration
