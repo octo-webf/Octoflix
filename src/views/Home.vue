@@ -53,9 +53,9 @@ export default {
 img {
   filter: invert(1);
   position: absolute;
-  top: 50%; /* poussé de la moitié de hauteur du référent */
+  top: 50%;
   left: 0;
-  transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
+  transform: translateY(-50%);
 }
 .category-link {
   vertical-align: top;

@@ -46,7 +46,7 @@
   font-size: 2em;
   font-weight: bolder;
   float: left;
-  line-heigt: 2em;
+  line-height: 2em;
 }
 header {
   display: block;
