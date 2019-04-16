@@ -23,6 +23,7 @@
 #nav {
   padding: 0 0 0 5%;
   float: left;
+  line-height: 3em;
 }
 #nav a {
   font-weight: bold;
@@ -46,7 +47,6 @@
   font-size: 2em;
   font-weight: bolder;
   float: left;
-  line-height: 2em;
 }
 header {
   display: block;
