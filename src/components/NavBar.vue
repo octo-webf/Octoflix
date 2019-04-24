@@ -4,6 +4,7 @@
     <router-link v-if="categoryId" :to="{ name: 'category', params: { categoryId: categoryId } }" class="category-link">{{this.getCategoryName}}</router-link>
   </nav>
 </template>
+
 <script>
 import octotvServices from '../services/octotv'
 export default {

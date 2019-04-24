@@ -9,6 +9,16 @@
   </div>
 </template>
 
+<script>
+import NavBar from '@/components/NavBar.vue'
+export default {
+  name: 'app',
+  components: {
+    NavBar
+  }
+}
+</script>
+
 <style>
 #app {
   padding: 1em 0 1em 1em;
@@ -45,12 +55,3 @@ html{
   background-color: black;
 }
 </style>
-<script>
-import NavBar from '@/components/NavBar.vue'
-export default {
-  name: 'app',
-  components: {
-    NavBar
-  }
-}
-</script>
