@@ -31,7 +31,7 @@ export default {
 .headline {
   padding-top: 12%;
   color: #fff;
-  font-size: 1.9em;
+  font-size: 3.5vw;
   text-align: center;
   line-height: 2em;
 }
@@ -45,13 +45,14 @@ export default {
 header {
   display: block;
   height: 50px;
-  position: sticky;
+  position: fixed;
+  padding: 0 1em;
   top: 0;
   left: 0;
   right: 0;
-  background:rgba(1, 1, 1, 0.8); ;
+  background:rgba(1, 1, 1, 0.2); ;
 }
 html{
-  background-color: black;
+  background-color: #111;
 }
 </style>
