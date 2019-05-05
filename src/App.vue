@@ -40,7 +40,7 @@ export default {
   color: #2c3e50;
 }
 .headline {
-  padding-top: 12%;
+  padding-top: 7%;
   color: #fff;
   font-size: 3.5vw;
   text-align: center;
@@ -54,6 +54,7 @@ export default {
   float: left;
 }
 header {
+  z-index: 100;
   display: block;
   height: 50px;
   position: fixed;
