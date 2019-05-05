@@ -1,23 +1,19 @@
 <template>
   <nav>
     <router-link to="/">Parcourir</router-link>
-    <router-link v-if="categoryId" :to="{ name: 'category', params: { categoryId: categoryId } }" class="category-link">{{this.getCategoryName}}</router-link>
+    <router-link v-if="categoryId" :to="{ name: 'category', params: { categoryId: categoryId } }" class="category-link">{{categoryName}}</router-link>
   </nav>
 </template>
 
 <script>
-import octotvServices from '../services/octotv'
 export default {
   name: 'NavBar',
   computed: {
     categoryId () {
       return this.$route.params && this.$route.params.categoryId
-    },
-    getCategoryName () {
-      const category = octotvServices.getCategoryInformations(this.categoryId)
-      return category && category.name
     }
   },
+  props: ['categoryName']
 }
 </script>
 

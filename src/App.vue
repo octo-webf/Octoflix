@@ -2,19 +2,30 @@
   <div id="app">
     <header>
       <router-link to="/"><span class="logo">Octoflix</span></router-link>
-      <nav-bar />
+      <nav-bar :categoryName="this.getCategoryName" />
     </header>
-    <div class="headline">Votre catégorie</div>
+    <div class="headline">{{this.getCategoryName}}</div>
     <router-view/>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import octotvServices from './services/octotv'
+
 export default {
   name: 'app',
   components: {
     NavBar
+  },
+  computed: {
+    categoryId () {
+      return this.$route.params && this.$route.params.categoryId
+    },
+    getCategoryName () {
+      const category = octotvServices.getCategoryInformations(this.categoryId)
+      return category && category.name
+    }
   }
 }
 </script>
