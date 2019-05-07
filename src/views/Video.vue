@@ -19,7 +19,7 @@
         <video @timeupdate="updateVideoBar()" @click="playOrPauseVideo" class="full-screen" ref="video" poster="../assets/background.png" :src="video[video.names[0]].html5"></video>
       </div>
     </div>
-    <div v-else> Video non disponible</div>
+    <div v-else>Video non disponible</div>
   </div>
 </template>
 
