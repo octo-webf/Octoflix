@@ -52,7 +52,7 @@ const getVideoInformations = async (videoId) => {
   }
 }
 
-const getVideoURL = ( video ) => {
+const getVideoURL = (video) => {
   return video && video.names && video.names[0] && video[video.names[0]] && video[video.names[0]].html5
 }
 
