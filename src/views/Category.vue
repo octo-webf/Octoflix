@@ -5,6 +5,7 @@
         <figure>
           <img :src="video.thumb" :alt="video.title">
           <figcaption>{{ video.title }}</figcaption>
+          <progress :max="convertVideoTime(video.duration)" :value="localVideos && localVideos[video.oid] && Math.abs(localVideos[video.oid].time)"></progress>
         </figure>
       </router-link>
     </article>
@@ -18,16 +19,32 @@ export default {
   name: 'Category',
   data() {
     return {
-      videos: undefined
+      videos: undefined,
+      localVideos: undefined
+    }
+  },
+  methods: {
+    convertVideoTime(time){
+      return octotvServices.getVideoTime(time)
     }
   },
   async created () {
     this.videos = await octotvServices.getVideos(this.$route.params.categoryId)
+  },
+  beforeMount () {
+    this.localVideos = JSON.parse(localStorage.videos)
   }
 }
 </script>
 
 <style scoped>
+  progress {
+    display: block;
+    width: 100%;
+    height:2px;
+    background: #444;
+    border-radius: 14px;
+  }
   article {
     display: inline-block;
     position: relative;
