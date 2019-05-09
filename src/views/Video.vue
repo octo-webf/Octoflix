@@ -3,14 +3,16 @@
     <div v-if="!status.apiLoaded">
       loading
     </div>
-    <div v-else-if="status.apiError">Video non disponible</div>
+    <div v-else-if="status.apiError">
+      Video non disponible
+      {{errorMessage}}
+    </div>
     <div v-else>
       <div class="overlay">
         <div id="top_overlay" class="clickable" v-show="displayOverlay" @click="goBack()">➔</div>
         <div id="playing_overlay" v-show="!status.launched" @click="playOrPauseVideo()" class="clickable">►</div>
         <nav id="bottom_overlay" v-show="displayOverlay">
-          <progress v-if="$refs.video" :max="$refs.video.duration" :value="currentTime"></progress>
-          <input class="progress" v-if="$refs.video" type="range" v-model="$refs.video.currentTime" step="10" min="0" :max="$refs.video.duration" />
+          <input class="progress" ref="playerSlider" v-if="$refs.video" type="range" @mousedown="mouseStatus(true)" @mouseup="mouseStatus(false)" @keydown.prevent="" @change="manualTimeChanged()" v-model="currentTime" step="1" min="0" :max="$refs.video.duration" />
           <ul>
             <li class="clickable" @click="playOrPauseVideo()"><span v-if="!status.launched">►</span><span v-else>▌▌</span></li>
             <li class="clickable" @click="moveTimeFromVideo(-10)">⟲</li>
@@ -24,7 +26,7 @@
         </nav>
       </div>
       <div class="video--container full-screen">
-        <video @timeupdate="updateVideoBar() & updateCurrentTimeSaved()" @click="playOrPauseVideo" class="full-screen" ref="video" poster="../assets/background.png" :src="getVideoURL()"></video>
+        <video @loadstart="retrieveCurrentTime()" @timeupdate="updateCurrentTime()" @click="changeOverlayVisibility()" class="full-screen" ref="video" poster="../assets/background.png" :src="getVideoURL()"></video>
       </div>
     </div>
   </div>
@@ -38,10 +40,13 @@ export default {
   data() {
     return {
       status: {
+        shown: false,
         fullScreened: false,
         launched: false,
         apiLoaded: false,
-        apiError: false
+        apiError: false,
+        mouseDown: false,
+        errorMessage: null
       },
       video: null,
       displayOverlay: true,
@@ -50,25 +55,22 @@ export default {
     }
   },
   async created () {
-    console.log('created')
     try {
       window.addEventListener('keydown', this.onkey)
       this.video = await octotvServices.getVideoInformations(this.videoId)
     } catch (e) {
       this.status.apiError = true
+      this.status.errorMessage = e
     } finally {
-      console.log('finaly')
       this.status.apiLoaded = true
     }
   },
   beforeMount () {
-    console.log('beforeMount')
     const videoId = this.videoId
     this.localVideos = JSON.parse(localStorage.videos)
     this.localVideos[videoId] = this.localVideos[videoId] || {}
     if (this.localVideos[videoId].time) {
       this.currentTime = this.localVideos[videoId].time
-      //    this.$refs.video.currentTime = this.currentTime
     }
   },
   computed: {
@@ -77,34 +79,36 @@ export default {
     }
   },
   methods: {
-    updateVideoBar(){
-      this.currentTime = this.$refs.video.currentTime
+    retrieveCurrentTime(){
+      this.$refs.video.currentTime = this.localVideos[this.videoId].time
+    },
+    mouseStatus(mouseDown){
+      this.status.mouseDown = mouseDown
+    },
+    manualTimeChanged() {
+      this.$refs.video.currentTime = this.currentTime
+    },
+    changeOverlayVisibility() {
+      this.displayOverlay = !this.displayOverlay
     },
     getVideoURL(){
       return octotvServices.getVideoURL(this.video)
     },
-    updateCurrentTimeSaved(){
-      this.localVideos[this.videoId].time = this.$refs.video.currentTime
-      localStorage.videos = JSON.stringify(this.localVideos)
+    updateCurrentTime(){
+      if (!this.status.mouseDown) {
+        this.currentTime = this.$refs.video.currentTime
+      }
     },
     goBack() {
       this.$router.go(-1)
     },
     goToFullScreen() {
-      try {
-        this.$refs.mainContainer.requestFullscreen()
-        this.status.fullScreened = true
-      } catch (e) {
-        //do nothing
-      }
+      this.$refs.mainContainer.requestFullscreen()
+      this.status.fullScreened = true
     },
     exitFullScreen() {
-      try {
-        document.exitFullscreen()
-        this.status.fullScreened = false
-      } catch (e) {
-        //do nothing
-      }
+      document.exitFullscreen()
+      this.status.fullScreened = false
     },
     playOrPauseVideo() {
       if (!this.status.launched) {
@@ -151,28 +155,51 @@ export default {
   },
   beforeDestroy: function () {
     window.removeEventListener('keydown', this.onkey)
+  },
+  watch: {
+    currentTime: function (time) {
+      this.localVideos[this.videoId].time = time
+      localStorage.videos = JSON.stringify(this.localVideos)
+    }
   }
 }
 </script>
 
 <style scoped>
-  progress {
-    display: block;
-    width: 100%;
-    height:2px;
-    background: #444;
-    border-radius: 14px;
-  }
   .progress {
     display: block;
-    width: 100%;
-    height:2px;
-    background: #444;
-    border-radius: 14px;
+    width: 90%;
+    margin: auto;
+    height:10px;
   }
-  progress::-webkit-progress-value {
-    border-radius: 12px;
-    background: red;
+  input[type=range].progress {
+    -webkit-appearance: none;
+      background: transparent;
+  }
+  input[type=range]::-webkit-slider-thumb.progress {
+    -webkit-appearance: none;
+  }
+  input[type=range].progress:focus {
+    outline: none;
+  }
+  input[type=range].progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid #FF4338;
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+    background: #FF4338;
+    cursor: pointer;
+    margin-top: -10px;
+    box-shadow: 2px 2px 0 #000, -2px -2px 0 #000;
+  }
+  input[type=range].progress::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: #3071a9;
+    border-radius: 3px;
+    border: 0.2px solid #010101;
   }
   .video--container .full-screen {
     height: 100%;
