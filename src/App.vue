@@ -26,6 +26,11 @@ export default {
       const category = octotvServices.getCategoryInformations(this.categoryId)
       return category && category.name
     }
+  },
+  beforeMount () {
+    if (!localStorage.videos) {
+      localStorage.videos = JSON.stringify({})
+    }
   }
 }
 </script>

@@ -62,7 +62,7 @@ describe('Video.vue', () => {
         }
       })
       // WORKAROUND : the finally is not awaited so I set the end of the load manually
-      wrapper.vm.loading = false
+      wrapper.vm.status.apiLoaded = true
       expect(octotvserviceGetVideoURLStub.called).toBe(true)
     })
   })

@@ -1,25 +1,32 @@
 <template>
-  <div>
-    <div v-if="!error && !loading" >
-      <div id="top_overlay" class="clickable" v-show="displayOverlay" @click="goBack()">➔</div>
-      <div id="playing_overlay" v-show="!isVideoLaunched" @click="playOrPauseVideo()" class="clickable">►</div>
-      <nav id="bottom_overlay" v-show="displayOverlay">
-        <ul>
-        <progress v-if="$refs.video" :max="$refs.video.duration" :value="videoTime"></progress>
-        <li class="clickable" @click="playOrPauseVideo()"><span v-if="!isVideoLaunched">►</span><span v-else>▌▌</span></li>
-        <li class="clickable" @click="moveTimeFromVideo(-10)">⟲</li>
-        <li class="clickable" @click="moveTimeFromVideo(10)">⟳</li>
-        <li class="title-container"><span class="title">titre</span></li>
-        <li class="clickable" @click="download()">⇩</li>
-        <li>🔊<input v-if="$refs.video" type="range" v-model="$refs.video.volume" step="0.01" min="0" max="1" /></li>
-        <li class="clickable" @click="fullScreenVideo()">⇲</li>
-        </ul>
-      </nav>
+  <div ref="mainContainer">
+    <div v-if="!status.apiLoaded">
+      loading
+    </div>
+    <div v-else-if="status.apiError">Video non disponible</div>
+    <div v-else>
+      <div class="overlay">
+        <div id="top_overlay" class="clickable" v-show="displayOverlay" @click="goBack()">➔</div>
+        <div id="playing_overlay" v-show="!status.launched" @click="playOrPauseVideo()" class="clickable">►</div>
+        <nav id="bottom_overlay" v-show="displayOverlay">
+          <progress v-if="$refs.video" :max="$refs.video.duration" :value="currentTime"></progress>
+          <input class="progress" v-if="$refs.video" type="range" v-model="$refs.video.currentTime" step="10" min="0" :max="$refs.video.duration" />
+          <ul>
+            <li class="clickable" @click="playOrPauseVideo()"><span v-if="!status.launched">►</span><span v-else>▌▌</span></li>
+            <li class="clickable" @click="moveTimeFromVideo(-10)">⟲</li>
+            <li class="clickable" @click="moveTimeFromVideo(10)">⟳</li>
+            <li class="title-container"><span class="title">titre</span></li>
+            <li class="clickable" @click="download()">⇩</li>
+            <li>🔊<input v-if="$refs.video" type="range" v-model="$refs.video.volume" step="0.01" min="0" max="1" /></li>
+            <li v-if="!status.fullScreened" class="clickable" @click="goToFullScreen()">⇱</li>
+            <li v-else class="clickable" @click="exitFullScreen()">⇲</li>
+          </ul>
+        </nav>
+      </div>
       <div class="video--container full-screen">
-        <video @timeupdate="updateVideoBar()" @click="playOrPauseVideo" class="full-screen" ref="video" poster="../assets/background.png" :src="video[video.names[0]].html5"></video>
+        <video @timeupdate="updateVideoBar() & updateCurrentTimeSaved()" @click="playOrPauseVideo" class="full-screen" ref="video" poster="../assets/background.png" :src="getVideoURL()"></video>
       </div>
     </div>
-    <div v-else>Video non disponible</div>
   </div>
 </template>
 
@@ -30,64 +37,93 @@ export default {
   name: 'Video',
   data() {
     return {
-      video: {},
-      error: false,
-      loading: true,
+      status: {
+        fullScreened: false,
+        launched: false,
+        apiLoaded: false,
+        apiError: false
+      },
+      video: null,
       displayOverlay: true,
-      isVideoLaunched: false,
-      videoTime: 0
+      currentTime: 0,
+      localVideos: []
     }
   },
   async created () {
+    console.log('created')
     try {
-      this.video = await octotvServices.getVideoInformations(this.$route.params.videoId)
       window.addEventListener('keydown', this.onkey)
+      this.video = await octotvServices.getVideoInformations(this.videoId)
     } catch (e) {
-      this.error = true
+      this.status.apiError = true
     } finally {
-      this.loading = false
+      console.log('finaly')
+      this.status.apiLoaded = true
+    }
+  },
+  beforeMount () {
+    console.log('beforeMount')
+    const videoId = this.videoId
+    this.localVideos = JSON.parse(localStorage.videos)
+    this.localVideos[videoId] = this.localVideos[videoId] || {}
+    if (this.localVideos[videoId].time) {
+      this.currentTime = this.localVideos[videoId].time
+      //    this.$refs.video.currentTime = this.currentTime
+    }
+  },
+  computed: {
+    videoId () {
+      return this.$route.params.videoId
     }
   },
   methods: {
     updateVideoBar(){
-      this.videoTime = this.$refs.video.currentTime
+      this.currentTime = this.$refs.video.currentTime
+    },
+    getVideoURL(){
+      return octotvServices.getVideoURL(this.video)
+    },
+    updateCurrentTimeSaved(){
+      this.localVideos[this.videoId].time = this.$refs.video.currentTime
+      localStorage.videos = JSON.stringify(this.localVideos)
     },
     goBack() {
       this.$router.go(-1)
     },
-    pauseVideo() {
-      this.$refs.video.pause()
-      this.isVideoLaunched = false
+    goToFullScreen() {
+      try {
+        this.$refs.mainContainer.requestFullscreen()
+        this.status.fullScreened = true
+      } catch (e) {
+        //do nothing
+      }
     },
-    fullScreenVideo() {
-      this.$refs.video.requestFullscreen()
+    exitFullScreen() {
+      try {
+        document.exitFullscreen()
+        this.status.fullScreened = false
+      } catch (e) {
+        //do nothing
+      }
     },
     playOrPauseVideo() {
-      if (!this.isVideoPlaying()) {
-        this.playVideo()
+      if (!this.status.launched) {
+        this.$refs.video.play()
       } else {
-        this.pauseVideo()
+        this.$refs.video.pause()
       }
+      this.status.launched = !this.status.launched
     },
     download() {
       window.open(this.video[this.video.names[0]].html5)
-    },
-    playVideo() {
-      this.$refs.video.play()
-      this.isVideoLaunched = true
-    },
-    isVideoPlaying() {
-      return !this.$refs.video.paused
     },
     moveTimeFromVideo(seconds) {
       const currentTime = this.$refs.video.currentTime
       this.$refs.video.currentTime = currentTime+seconds
     },
-    downVolume(step) {
-      this.setVolume(Math.max(this.$refs.video.volume*100-step, 0)/100)
-    },
-    upVolume(step){
-      this.setVolume(Math.min(this.$refs.video.volume*100+step, 100)/100)
+    moveVolume(step) {
+      const newVolume = Math.max(Math.min(this.$refs.video.volume*100+step, 100)/100, 0)
+      this.setVolume(newVolume)
     },
     setVolume(volume){
       this.$refs.video.volume = volume
@@ -106,22 +142,28 @@ export default {
         this.moveTimeFromVideo(-10)
       }
       if (event.code ==='ArrowUp') {
-        this.upVolume(10)
+        this.moveVolume(5)
       }
       if (event.code ==='ArrowDown') {
-        this.downVolume(10)
+        this.moveVolume(-5)
       }
     }
   },
   beforeDestroy: function () {
     window.removeEventListener('keydown', this.onkey)
-  },
+  }
 }
 </script>
 
 <style scoped>
   progress {
-    background-color: white;
+    display: block;
+    width: 100%;
+    height:2px;
+    background: #444;
+    border-radius: 14px;
+  }
+  .progress {
     display: block;
     width: 100%;
     height:2px;
