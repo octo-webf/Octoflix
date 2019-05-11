@@ -8,10 +8,6 @@ workbox.routing.registerRoute(
   new RegExp('/styles/'),
   new workbox.strategies.CacheFirst()
 )
-workbox.routing.registerRoute(
-  new RegExp('*.jpg'),
-  new workbox.strategies.CacheFirst()
-)
 
 self.addEventListener('push', (event) => {
   const title = 'Get Started With Workbox'
@@ -28,7 +24,19 @@ self.addEventListener('notificationclose', event => {
   console.log('Closed notification: ' + primaryKey)
 })
 
+self.addEventListener('notificationclick', event => {
+  const notification = event.notification
+  const primaryKey = notification.data.primaryKey
+  const action = event.action
 
-workbox.precaching.precacheAndRoute(self.__precacheManifest)
+  if (action === 'close') {
+    notification.close()
+  } else {
+    clients.openWindow('https://octoflix.herokuapp.com/#/notification/' + primaryKey)
+  }
+})
+
+
+workbox.precaching.precacheAndRoute(  self.__precacheManifest)
 
 workbox.routing.registerRoute(/^https:\/\/tv.octo.com\/api\/v2*/, new workbox.strategies.StaleWhileRevalidate({ plugins: [new workbox.cacheableResponse.Plugin({ statuses: [ 0, 200 ] })] }), 'GET')
