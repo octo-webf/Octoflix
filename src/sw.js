@@ -22,6 +22,12 @@ self.addEventListener('push', (event) => {
 
   event.waitUntil(self.registration.showNotification(title, options))
 })
+self.addEventListener('notificationclose', event => {
+  const notification = event.notification
+  const primaryKey = notification.data.primaryKey
+  console.log('Closed notification: ' + primaryKey)
+})
+
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest)
 

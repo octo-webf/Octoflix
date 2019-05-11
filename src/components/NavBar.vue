@@ -18,16 +18,31 @@ import pushService from '../services/push'
   methods: {
     initializeNotifications () {
       Notification.requestPermission(status => {
-        console.log('Notification permission status:', status)
+        navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+          // Do we already have a push message subscription?
+          if (Notification.permission === 'granted') {
+            navigator.serviceWorker.getRegistration().then(reg => {
+              const options = {
+                body: 'First notification!',
+                icon: 'images/logo.png',
+                vibrate: [100, 50, 100],
+                data: {
+                  dateOfArrival: Date.now(),
+                  primaryKey: 1
+                },
+                actions: [
+                  {action: 'explore', title: 'Go to the site',
+                    icon: 'images/checkmark.png'},
+                  {action: 'close', title: 'Close the notification',
+                    icon: 'images/xmark.png'},
+                ]
+              }
+              reg.showNotification('Hello world!', options)
+            })
+          }
+        })
       })
-      navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
-        // Do we already have a push message subscription?
-        if (Notification.permission === 'granted') {
-          navigator.serviceWorker.getRegistration().then(reg => {
-            reg.showNotification('Hello world!')
-          })
-        }
-      })
+
     }
   },
   props: ['categoryName']
