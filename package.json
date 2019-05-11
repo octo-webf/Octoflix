@@ -17,6 +17,7 @@
     "register-service-worker": "^1.6.2",
     "serve-static": "^1.13.2",
     "vue": "^2.6.6",
+    "vue-analytics": "^5.16.4",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

@@ -6,6 +6,8 @@ module.exports = {
     config
       .plugin('service-worker')
       .use(GenerateSW, [{
+        clientsClaim: true,
+        skipWaiting: true,
         runtimeCaching: [{
           urlPattern: new RegExp(urlAPIToCache),
           handler: 'cacheFirst',
