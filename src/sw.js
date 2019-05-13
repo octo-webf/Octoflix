@@ -1,8 +1,8 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js')
 
 workbox.core.skipWaiting()
 workbox.core.clientsClaim()
-workbox.googleAnalytics.initialize();
+workbox.googleAnalytics.initialize()
 
 workbox.routing.registerRoute(
   new RegExp('/styles/'),
@@ -37,6 +37,6 @@ self.addEventListener('notificationclick', event => {
 })
 
 
-workbox.precaching.precacheAndRoute(  self.__precacheManifest)
+workbox.precaching.precacheAndRoute(self.__precacheManifest)
 
-workbox.routing.registerRoute(/^https:\/\/tv.octo.com\/api\/v2*/, new workbox.strategies.StaleWhileRevalidate({ plugins: [new workbox.cacheableResponse.Plugin({ statuses: [ 0, 200 ] })] }), 'GET')
+workbox.routing.registerRoute(/^https:\/\/tv.octo.com\/api\/v2*/, new workbox.strategies.StaleWhileRevalidate({ plugins: [new workbox.cacheableResponse.Plugin({ statuses: [0, 200] })] }), 'GET')

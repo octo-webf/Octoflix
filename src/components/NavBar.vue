@@ -8,7 +8,7 @@
 
 <script>
 import pushService from '../services/push'
-  export default {
+export default {
   name: 'NavBar',
   computed: {
     categoryId () {
@@ -18,28 +18,44 @@ import pushService from '../services/push'
   methods: {
     initializeNotifications () {
       Notification.requestPermission(status => {
-        navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+        navigator.serviceWorker.ready.then(async function (serviceWorkerRegistration) {
+          serviceWorkerRegistration.pushManager.getSubscription()
+          await serviceWorkerRegistration.pushManager.subscribe({
+            userVisibleOnly: true,
+          }).then(subscription => {
+            console.log('User is subscribed:', subscription)
+          }).catch(err => {
+            if (Notification.permission === 'denied') {
+              console.warn('Permission for notifications was denied')
+            } else {
+              console.error('Failed to subscribe the user: ', err)
+            }
+          })
+          
           // Do we already have a push message subscription?
+          /*
           if (Notification.permission === 'granted') {
-            navigator.serviceWorker.getRegistration().then(reg => {
-              const options = {
-                body: 'First notification!',
-                icon: 'images/logo.png',
-                vibrate: [100, 50, 100],
-                data: {
-                  dateOfArrival: Date.now(),
-                  primaryKey: 1
+            const options = {
+              body: 'First notification!',
+              icon: 'images/logo.png',
+              vibrate: [100, 50, 100],
+              data: {
+                dateOfArrival: Date.now(),
+                primaryKey: 1
+              },
+              actions: [
+                {
+                  action: 'explore', title: 'Go to the site',
+                  icon: 'images/checkmark.png'
                 },
-                actions: [
-                  {action: 'explore', title: 'Go to the site',
-                    icon: 'images/checkmark.png'},
-                  {action: 'close', title: 'Close the notification',
-                    icon: 'images/xmark.png'},
-                ]
-              }
-              reg.showNotification('Hello world!', options)
-            })
-          }
+                {
+                  action: 'close', title: 'Close the notification',
+                  icon: 'images/xmark.png'
+                }
+              ]
+            }
+            serviceWorkerRegistration.showNotification('Hello world!', options)
+          }*/
         })
       })
 
