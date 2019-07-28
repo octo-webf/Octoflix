@@ -34,7 +34,8 @@ describe('Video.vue', () => {
       const wrapper = await shallowMount(Video, {
         computed: {
           videoId: () => 1
-        }
+        },
+        stubs: ['video-layout']
       })
       expect(wrapper).toBeDefined()
     })
@@ -42,7 +43,8 @@ describe('Video.vue', () => {
       await shallowMount(Video, {
         computed: {
           videoId: () => 1
-        }
+        },
+        stubs: ['video-layout']
       })
       expect(octotvserviceGetVideoInformationsStub.calledOnce).toBe(true)
     })
@@ -51,7 +53,8 @@ describe('Video.vue', () => {
       await shallowMount(Video, {
         computed: {
           videoId: () => 1
-        }
+        },
+        stubs: ['video-layout']
       })
       expect(windowStub.called).toBe(true)
     }),
@@ -59,7 +62,8 @@ describe('Video.vue', () => {
       const wrapper = await shallowMount(Video, {
         computed: {
           videoId: () => 1
-        }
+        },
+        stubs: ['video-layout']
       })
       // WORKAROUND : the finally is not awaited so I set the end of the load manually
       wrapper.vm.status.apiLoaded = true
