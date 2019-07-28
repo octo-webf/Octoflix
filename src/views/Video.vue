@@ -1,13 +1,13 @@
 <script>
 import octotvServices from '../services/octotv'
 import VideoLayout from '../components/VideoLayout/index.vue'
-//import EndVideoLayout from '../components/EndVideoLayout/index.vue'
+// import EndVideoLayout from '../components/EndVideoLayout/index.vue'
 export default {
   name: 'Video',
   components: {
     VideoLayout
   },
-  data() {
+  data () {
     return {
       status: {
         fullScreened: false,
@@ -47,32 +47,32 @@ export default {
     },
     infos () {
       return {
-        currentTime: (this.localVideos[this.videoId] && this.localVideos[this.videoId].time) || this.$refs.video && this.$refs.video.currentTime,
+        currentTime: (this.localVideos[this.videoId] && this.localVideos[this.videoId].time) || (this.$refs.video && this.$refs.video.currentTime),
         volume: this.$refs.video && this.$refs.video.volume
       }
     }
   },
   methods: {
-    retrieveCurrentStorredTime(videoId = this.videoId){
-      if ( this.$refs.video ) {
+    retrieveCurrentStorredTime (videoId = this.videoId) {
+      if (this.$refs.video) {
         this.$refs.video.currentTime = this.timeToRetrieve
         this.timeToRetrieve = null
       }
     },
-    manualTimeChanged(time) {
+    manualTimeChanged (time) {
       this.$refs.video.currentTime = time
     },
-    changeOverlayVisibility() {
+    changeOverlayVisibility () {
       this.displayOverlay = !this.displayOverlay
     },
-    getVideoURL(){
+    getVideoURL () {
       return octotvServices.getVideoURL(this.video)
     },
-    updateCurrentTime(event){
-      if (this.timeToRetrieve){
-        return this.retrieveCurrentStorredTime()      
+    updateCurrentTime (event) {
+      if (this.timeToRetrieve) {
+        return this.retrieveCurrentStorredTime()
       }
-      if(!this.infos || !this.$refs.videoLayout) {
+      if (!this.infos || !this.$refs.videoLayout) {
         return false
       }
       const time = event.target.currentTime
@@ -81,19 +81,18 @@ export default {
       this.infos.currentTime = time
       this.$refs.videoLayout.updateTime()
     },
-    goBack() {
+    goBack () {
       this.$router.go(-1)
     },
-    changeFullScreenStatus() {
+    changeFullScreenStatus () {
       if (this.status.fullScreened) {
         document.exitFullscreen()
-      }
-      else {
+      } else {
         this.$refs.mainContainer.requestFullscreen()
       }
-      this.status.fullScreened = !this.status.fullScreened 
+      this.status.fullScreened = !this.status.fullScreened
     },
-    playOrPauseVideo() {
+    playOrPauseVideo () {
       if (!this.status.launched) {
         this.$refs.video.play()
       } else {
@@ -101,39 +100,39 @@ export default {
       }
       this.status.launched = !this.status.launched
     },
-    download() {
+    download () {
       window.open(this.video[this.video.names[0]].html5)
     },
-    moveTimeFromVideo(seconds) {
+    moveTimeFromVideo (seconds) {
       const currentTime = this.$refs.video.currentTime
-      this.$refs.video.currentTime = currentTime+seconds
+      this.$refs.video.currentTime = currentTime + seconds
     },
-    moveVolume(step) {
-      const newVolume = Math.max(Math.min(this.$refs.video.volume*100+step, 100)/100, 0)
+    moveVolume (step) {
+      const newVolume = Math.max(Math.min(this.$refs.video.volume * 100 + step, 100) / 100, 0)
       this.setVolume(newVolume)
     },
-    setVolume(volume){
+    setVolume (volume) {
       this.$refs.video.volume = volume
       this.infos.volume = volume
       this.$refs.videoLayout.updateVolume()
     },
     onkey (event) {
-      if (event.code ==='Space') {
+      if (event.code === 'Space') {
         this.playOrPauseVideo()
       }
-      if (event.code ==='Backspace') {
+      if (event.code === 'Backspace') {
         this.goBack()
       }
-      if (event.code ==='ArrowRight') {
+      if (event.code === 'ArrowRight') {
         this.moveTimeFromVideo(10)
       }
-      if (event.code ==='ArrowLeft') {
+      if (event.code === 'ArrowLeft') {
         this.moveTimeFromVideo(-10)
       }
-      if (event.code ==='ArrowUp') {
+      if (event.code === 'ArrowUp') {
         this.moveVolume(5)
       }
-      if (event.code ==='ArrowDown') {
+      if (event.code === 'ArrowDown') {
         this.moveVolume(-5)
       }
     }

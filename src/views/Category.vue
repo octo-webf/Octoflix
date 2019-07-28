@@ -17,14 +17,14 @@ import octotvServices from '../services/octotv'
 
 export default {
   name: 'Category',
-  data() {
+  data () {
     return {
       videos: undefined,
       localVideos: undefined
     }
   },
   methods: {
-    convertVideoTime(time){
+    convertVideoTime (time) {
       return octotvServices.getVideoTime(time)
     }
   },

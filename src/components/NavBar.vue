@@ -7,13 +7,13 @@
 </template>
 
 <script>
-import pushService from '../services/push'
+// import pushService from '../services/push'
 export default {
   name: 'NavBar',
   computed: {
     categoryId () {
       return this.$route.params && this.$route.params.categoryId
-    },
+    }
   },
   methods: {
     initializeNotifications () {
@@ -21,7 +21,7 @@ export default {
         navigator.serviceWorker.ready.then(async function (serviceWorkerRegistration) {
           serviceWorkerRegistration.pushManager.getSubscription()
           await serviceWorkerRegistration.pushManager.subscribe({
-            userVisibleOnly: true,
+            userVisibleOnly: true
           }).then(subscription => {
             console.log('User is subscribed:', subscription)
           }).catch(err => {
@@ -31,7 +31,7 @@ export default {
               console.error('Failed to subscribe the user: ', err)
             }
           })
-          
+
           // Do we already have a push message subscription?
           /*
           if (Notification.permission === 'granted') {
@@ -55,10 +55,9 @@ export default {
               ]
             }
             serviceWorkerRegistration.showNotification('Hello world!', options)
-          }*/
+          } */
         })
       })
-
     }
   },
   props: ['categoryName']

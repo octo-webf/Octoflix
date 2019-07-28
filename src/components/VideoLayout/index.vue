@@ -8,18 +8,18 @@ export default {
     fullScreened: Boolean,
     infos: Object
   },
-  data() {
+  data () {
     return {
       currentTime: this.infos && this.infos.currentTime,
-      currentVolume: this.infos && this.infos.volume,
+      currentVolume: this.infos && this.infos.volume
     }
   },
   methods: {
-    updateTime() {
-        this.currentTime = this.infos && this.infos.currentTime
+    updateTime () {
+      this.currentTime = this.infos && this.infos.currentTime
     },
-    updateVolume() {
-        this.currentVolume = this.infos && this.infos.volume
+    updateVolume () {
+      this.currentVolume = this.infos && this.infos.volume
     }
   }
 }
@@ -103,7 +103,7 @@ export default {
                 max="1"
                 data-test="audio-slider-input"
                 /></li>
-                <li 
+                <li
                     class="clickable"
                     @click="$emit('changeScreenSize')"
                     data-test="screen-change-button"

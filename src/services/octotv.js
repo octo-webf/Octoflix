@@ -9,8 +9,8 @@ const categoryList = {
   c124f23e8c015v7knn09: { name: 'Octo Academy' }
 }
 
-const getCategoryInformations = (category_oid) => {
-  return categoryList[category_oid]
+const getCategoryInformations = (categoryOid) => {
+  return categoryList[categoryOid]
 }
 
 const getCategories = async () => {
@@ -40,15 +40,11 @@ const getVideos = async (categoryId) => {
 }
 
 const getVideoInformations = async (videoId) => {
-  try {
-    const result = await axios.get(`${OCTOTV_API}/medias/modes/?oid=${videoId}&html5=mp4`)
-    if (!result.data || !result.data.success || result.data.names.length === 0) {
-      throw new Error('Unknown error')
-    }
-    return Promise.resolve(result.data)
-  } catch (e) {
-    throw e
+  const result = await axios.get(`${OCTOTV_API}/medias/modes/?oid=${videoId}&html5=mp4`)
+  if (!result.data || !result.data.success || result.data.names.length === 0) {
+    throw new Error('Unknown error')
   }
+  return Promise.resolve(result.data)
 }
 
 const getVideoURL = (video) => {
@@ -56,7 +52,7 @@ const getVideoURL = (video) => {
 }
 
 const calculateTime = (minutes, seconds) => {
-  return minutes*60 + seconds
+  return minutes * 60 + seconds
 }
 const getVideoTime = (time) => {
   const minutes = parseInt(time.replace(/(\d{2}) m (\d{2}) s/, '$1'))
