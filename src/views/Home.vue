@@ -16,12 +16,12 @@ import octotvServices from '../services/octotv'
 
 export default {
   name: 'home',
-  data() {
+  data () {
     return {
       categories: undefined
     }
   },
-  async created() {
+  async created () {
     this.categories = await octotvServices.getCategories()
   }
 }
@@ -64,7 +64,7 @@ img {
   text-decoration: none;
 }
 @media only screen and (min-width: 1024px) {
-  
+
   .image-category {
     max-height: 120px;
     max-width: 120px;

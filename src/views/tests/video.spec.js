@@ -1,8 +1,8 @@
+/* eslint no-unused-expressions: 0 */
 import Video from '../Video.vue'
 import { shallowMount } from '@vue/test-utils'
 import sinon from 'sinon'
 import octotvServices from '../../services/octotv'
-
 
 describe('Video.vue', () => {
   let sandbox,
@@ -11,7 +11,7 @@ describe('Video.vue', () => {
     windowStub
 
   beforeEach(() => {
-    sandbox = sinon.createSandbox(),
+    sandbox = sinon.createSandbox()
     windowStub = sinon.stub()
   })
 
@@ -57,7 +57,7 @@ describe('Video.vue', () => {
         stubs: ['video-layout']
       })
       expect(windowStub.called).toBe(true)
-    }),
+    })
     it('should call the URL getter of octotv service once on mount', async () => {
       const wrapper = await shallowMount(Video, {
         computed: {

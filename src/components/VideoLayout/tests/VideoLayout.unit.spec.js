@@ -30,13 +30,13 @@ describe('VideoLayout.vue', () => {
   context('clickable emit', () => {
     let wrapper
     const title = 'the video title'
-    const video = {}      
+    const video = {}
     const infos = {}
     const playing = false
     const fullScreened = false
 
     const propsData = { title, video, infos, playing, fullScreened }
-  beforeEach(async () => {
+    beforeEach(async () => {
       wrapper = await shallowMount(VideoLayout, {
         propsData
       })
@@ -63,7 +63,7 @@ describe('VideoLayout.vue', () => {
         clickableElement.value = emittedValue
         expect(wrapper.emitted().timeChange).toBeTruthy()
         expect(wrapper.emitted().timeChange.length).toBe(1)
-        expect(wrapper.emitted().timeChange[0][0]<0).toBe(false)
+        expect(wrapper.emitted().timeChange[0][0] < 0).toBe(false)
         expect(wrapper.emitted().moveTime[0][0]).toEqual(emittedValue)
       })
       describe('preview button', () => {
@@ -108,7 +108,7 @@ describe('VideoLayout.vue', () => {
         clickableElement.trigger('click')
         expect(wrapper.emitted().moveTime).toBeTruthy()
         expect(wrapper.emitted().moveTime.length).toBe(1)
-        expect(wrapper.emitted().moveTime[0][0]<0).toBe(true)
+        expect(wrapper.emitted().moveTime[0][0] < 0).toBe(true)
         expect(wrapper.emitted().moveTime[0][0]).toEqual(-10)
       })
       describe('preview button', () => {
@@ -125,7 +125,7 @@ describe('VideoLayout.vue', () => {
         clickableElement.trigger('click')
         expect(wrapper.emitted().moveTime).toBeTruthy()
         expect(wrapper.emitted().moveTime.length).toBe(1)
-        expect(wrapper.emitted().moveTime[0][0]<0).toBe(false)
+        expect(wrapper.emitted().moveTime[0][0] < 0).toBe(false)
         expect(wrapper.emitted().moveTime[0][0]).toEqual(10)
       })
       describe('preview button', () => {

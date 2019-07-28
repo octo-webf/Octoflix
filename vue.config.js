@@ -6,7 +6,7 @@ module.exports = {
       .plugin('service-worker')
       .use(InjectManifest, [{
         swSrc: './src/sw.js',
-        swDest: 'service-worker.js',
+        swDest: 'service-worker.js'
       }])
     return config
   }
