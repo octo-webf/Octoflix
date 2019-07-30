@@ -1,5 +1,5 @@
 <script>
-import octotvServices from '../services/octotv'
+import octotvServices from '../services/octotv.service'
 import VideoLayout from '../components/VideoLayout/index.vue'
 // import EndVideoLayout from '../components/EndVideoLayout/index.vue'
 export default {
