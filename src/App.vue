@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <router-link to="/"><span class="logo">Octoflix</span></router-link>
+      <router-link to="/"><span class="logo">Octo+</span></router-link>
       <nav-bar :categoryName="this.getCategoryName" />
     </header>
     <div class="headline">{{this.getCategoryName}}</div>
@@ -36,40 +36,37 @@ export default {
 </script>
 
 <style>
-#app {
-  padding: 1em 0 1em 1em;
+html{
+  background-color: #0A193D;
+  color: white;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-.headline {
-  padding-top: 7%;
-  color: #fff;
-  font-size: 3.5vw;
-  text-align: center;
-  line-height: 2em;
-}
-.logo {
-  color: #e50914;
-  text-transform: capitalize;
-  font-size: 2em;
-  font-weight: bolder;
-  float: left;
 }
 header {
   z-index: 100;
+  line-height: 50px;
   display: block;
   height: 50px;
+  overflow: hidden;
   position: fixed;
   padding: 0 1em;
   top: 0;
   left: 0;
   right: 0;
-  background:rgba(1, 1, 1, 0.2); ;
+  background:rgba(1,1,1, 0.5);
 }
-html{
-  background-color: #111;
+.headline {
+  padding-top: 50px;
+  font-size: 3.5vw;
+  text-align: center;
+}
+.logo {
+  color: #D4D5D6;
+  text-transform: capitalize;
+  font-size: 2em;
+  font-weight: bolder;
+  float: left;
 }
 </style>

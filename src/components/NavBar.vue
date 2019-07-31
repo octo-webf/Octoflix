@@ -67,8 +67,8 @@ export default {
 <style scoped>
 nav {
   padding: 0 0 0 5%;
+  float:right;
   float: left;
-  line-height: 3em;
 }
 nav a {
   font-weight: bold;
@@ -81,7 +81,6 @@ nav a.router-link-exact-active {
   color: white;
 }
 .notification-logo {
-  color: white;
   float: right;
   font-size: 2em;
 }
