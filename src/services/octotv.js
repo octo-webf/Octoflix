@@ -2,12 +2,13 @@ import axios from 'axios'
 
 const OCTOTV_API = 'https://tv.octo.com/api/v2'
 const categoryList = {
-  c124ccf81539cwmir14k: { name: 'Actualités' },
+//  c124ccf81539cwmir14k: { name: 'Actualités' },
   c124cd0c0f8f2cu50e8j: { name: 'BOFs' },
   c125159f81d17p0als7b: { name: 'Externe' },
   c124ccf81532boogbh2m: { name: 'Matinales' },
-  c124f23e8c015v7knn09: { name: 'Octo Academy' }
+//  c124f23e8c015v7knn09: { name: 'Octo Academy' }
 }
+const availableCategory = Object.keys(categoryList)
 
 const getCategoryInformations = (categoryOid) => {
   return categoryList[categoryOid]
@@ -19,7 +20,10 @@ const getCategories = async () => {
     if (!result.data || !result.data.success) {
       throw new Error('Unknown error')
     }
-    return result.data.channels
+    console.log(result.data.channels)
+    console.log(availableCategory)
+    const availableCategoryToDisplay = result.data.channels.filter(channel => availableCategory.includes(channel.oid))
+    return availableCategoryToDisplay
   } catch (e) {
     console.log(e)
     throw e
