@@ -37,14 +37,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   progress {
     display: block;
     width: 100%;
     height:2px;
     background: #444;
     border-radius: 14px;
-  }
+ }
+ progress[value]::-webkit-progress-value {
+  background: #e50914;
+}
   article {
     display: inline-block;
     position: relative;

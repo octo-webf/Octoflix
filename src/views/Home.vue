@@ -34,16 +34,17 @@ export default {
 }
 .category-title {
   text-overflow: ellipsis;
-  color: grey;
-  width: 84px;
+  color: white;
+  width: 90px;
   font-size: 0.8em;
-  padding-top: 1em;
+  padding: 0.5em 0;
+ 
 }
 .img-wrapper {
   height: 84px;
   width: 84px;
   text-align: center;
-  background-color: #e50914;
+  background-color: #D4D5D6;
   position: relative;
   border: 3px solid #222;
 }
@@ -51,7 +52,6 @@ export default {
   border: 3px solid #ccc;
 }
 img {
-  filter: invert(1);
   position: absolute;
   top: 50%;
   left: 0;
@@ -69,12 +69,13 @@ img {
     max-height: 120px;
     max-width: 120px;
   }
-  .category-title {
-    width: 120px;
-  }
   .img-wrapper {
     height: 120px;
     width: 120px;
+  }
+  .category-title {
+  width: 126px;
+  font-size: 1.2em;
   }
 }
 </style>
