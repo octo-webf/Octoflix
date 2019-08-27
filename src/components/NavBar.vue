@@ -65,11 +65,6 @@ export default {
 </script>
 
 <style scoped>
-nav {
-  padding: 0 0 0 5%;
-  float: right;
-  float: left;
-}
 nav a {
   font-weight: bold;
   font-size: 1.2em;

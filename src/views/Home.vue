@@ -29,52 +29,80 @@ export default {
 
 <style scoped>
 .image-category {
-  max-height: 84px;
-  max-width: 84px;
+  width: 95%;
 }
 .category-title {
   text-overflow: ellipsis;
-  color: white;
-  width: 90px;
+  color: #3f4d73;
+  width: 100%;
   font-size: 0.8em;
   padding: 0.5em 0;
+  font-weight: bold;
+}
 
+@media (orientation: landscape) {
+  .img-wrapper {
+    height: 30vh;
+    width: 30vh;
+  }
 }
 .img-wrapper {
-  height: 84px;
-  width: 84px;
+  height: 20vw;
+  width: 20vw;
+  max-width: 20vh;
+  max-height: 20vh;
+  min-width: 80px;
+  min-height: 80px;
   text-align: center;
-  background-color: #D4D5D6;
+  background-color: white;
+  background-color: rgba(255,255,255,0.2);
   position: relative;
-  border: 3px solid #222;
+  border: 10px solid transparent;
+  border-radius: 15px;
+  margin: 10px;
 }
-.img-wrapper:hover {
-  border: 3px solid #ccc;
+.category-link:hover .category-title {
+  transition: all 0.5s ease;
+  color: white;
+  font-size: 1.35em;
+  overflow: hidden;
+}
+.category-link:hover img {
+  transition: all 0.5s ease;
+  filter: invert(100%);
+}
+.category-link:hover .img-wrapper {
+  transition: all 0.5s ease;
+  border: 20px solid #00AFCB;
+  margin: 0;
+  background-color: #00AFCB;
 }
 img {
+  /*
+  Allignement vertical et horizontal pour des images de tailles différentes
+  */
   position: absolute;
   top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
 }
 .category-link {
   vertical-align: top;
   display: inline-block;
-  margin: 1em;
+  margin: 1em 2vw;
   text-decoration: none;
 }
 @media only screen and (min-width: 1024px) {
-  .image-category {
-    max-height: 120px;
-    max-width: 120px;
-  }
-  .img-wrapper {
-    height: 120px;
-    width: 120px;
-  }
+
   .category-title {
-    width: 126px;
     font-size: 1.2em;
   }
 }
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+  .img-wrapper {
+    height: 80vw;
+    width: 80vw;
+  }
+}
+
 </style>
