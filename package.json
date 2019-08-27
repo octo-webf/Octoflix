@@ -12,6 +12,7 @@
     "lighthouse:ci": "curl --silent https://octoflix.herokuapp.com/#/    && lighthouse-ci --performance=80 --pwa=100 https://octoflix.herokuapp.com/#/",
     "test:unit": "vue-cli-service test:unit",
     "test:coverage": "vue-cli-service test:unit --no-cache --coverage",
+    "test:dev": "vue-cli-service test:unit --no-cache  --coverage --runInBand --detectOpenHandles --verbose",
     "start": "node server.js",
     "postinstall": "npm run build"
   },
