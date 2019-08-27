@@ -10,6 +10,8 @@ describe('Video.vue', () => {
     octotvserviceGetVideoURLStub,
     windowStub
 
+  const stubs =   {'video-layout': true}
+
   beforeEach(() => {
     sandbox = sinon.createSandbox()
     windowStub = sinon.stub()
@@ -35,7 +37,7 @@ describe('Video.vue', () => {
         computed: {
           videoId: () => 1
         },
-        stubs: ['video-layout']
+        stubs
       })
       expect(wrapper).toBeDefined()
     })
@@ -44,7 +46,7 @@ describe('Video.vue', () => {
         computed: {
           videoId: () => 1
         },
-        stubs: ['video-layout']
+        stubs
       })
       expect(octotvserviceGetVideoInformationsStub.calledOnce).toBe(true)
     })
@@ -63,7 +65,7 @@ describe('Video.vue', () => {
         computed: {
           videoId: () => 1
         },
-        stubs: ['video-layout']
+        stubs
       })
       // WORKAROUND : the finally is not awaited so I set the end of the load manually
       wrapper.vm.status.apiLoaded = true
