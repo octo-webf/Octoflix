@@ -10,7 +10,7 @@ describe('Video.vue', () => {
     octotvserviceGetVideoURLStub,
     windowStub
 
-  const stubs =   {'video-layout': true}
+  const stubs = { 'video-layout': true }
 
   beforeEach(() => {
     sandbox = sinon.createSandbox()

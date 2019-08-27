@@ -55,7 +55,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background:rgba(1,1,1, 0.5);
+  background: rgba(1,1,1, 0.5);
 }
 .headline {
   padding-top: 50px;

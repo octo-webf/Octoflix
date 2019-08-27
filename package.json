@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint && yarn stylelint 'src/**/*.vue'",
     "cost": "cost-of-modules --yarn --no-install",
     "lighthouse:dev ": "lighthouse-ci https://localhost:8080",
     "lighthouse:qua": "curl --silent https://octoflix.herokuapp.com/#/ && lighthouse-ci https://octoflix.herokuapp.com/#/",
@@ -45,6 +45,7 @@
     "lighthouse-ci": "^1.9.0",
     "nyc": "^14.1.1",
     "sinon": "^7.3.2",
+    "stylelint": "^10.1.0",
     "vue-template-compiler": "^2.5.21",
     "workbox-webpack-plugin": "^4.2.0"
   }

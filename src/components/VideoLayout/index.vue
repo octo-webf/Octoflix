@@ -118,101 +118,101 @@ export default {
 
 <style scoped>
 ul {
-    margin: 0;
+  margin: 0;
 }
 li {
-    display: inline-block;
-    margin-right: 1em;
+  display: inline-block;
+  margin-right: 1em;
 }
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 .timer {
-    margin-top: -50px;
-    color: white;
-    font-size: 0.5em;
-    float: left;
-    margin-left: 5%;
+  margin-top: -50px;
+  color: white;
+  font-size: 0.5em;
+  float: left;
+  margin-left: 5%;
 }
 #bottom_overlay {
-    font-size: 2em;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
-    padding: 10px;
-    line-height: 50px;
-    color: white;
-    background-color: transparent;
-    z-index:300000;
+  font-size: 2em;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  padding: 10px;
+  line-height: 50px;
+  color: white;
+  background-color: transparent;
+  z-index: 300000;
 }
 #top_overlay {
-    transform: rotate(180deg);
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 15px;
-    font-size: 3em;
-    z-index:1000;
+  transform: rotate(180deg);
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 15px;
+  font-size: 3em;
+  z-index: 1000;
 }
 #playing_overlay {
-    font-size: 5em;
-    text-align: center;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 25%;
-    min-width: 100px;
-    max-width: 150px;
-    opacity: 0.6;
-    background-color:#000;
-    z-index:300000;
-    border: 5px solid white;
-    border-radius: 15%;
+  font-size: 5em;
+  text-align: center;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  min-width: 100px;
+  max-width: 150px;
+  opacity: 0.6;
+  background-color: #000;
+  z-index: 300000;
+  border: 5px solid white;
+  border-radius: 15%;
 }
 @media only screen and (min-width: 1024px) {
-    #playing_overlay {
-        font-size: 10em;
-        min-width: 200px;
-        min-height: 200px;
-        max-width: 300px;
-    }
+  #playing_overlay {
+    font-size: 10em;
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 300px;
+  }
 }
 .progress {
-    display: block;
-    width: 90%;
-    margin: auto;
-    height:10px;
+  display: block;
+  width: 90%;
+  margin: auto;
+  height: 10px;
 }
 input[type=range].progress {
-    -webkit-appearance: none;
-        background: transparent;
+  -webkit-appearance: none;
+  background: transparent;
 }
 input[type=range]::-webkit-slider-thumb.progress {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 input[type=range].progress:focus {
-    outline: none;
+  outline: none;
 }
 input[type=range].progress::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 1px solid #FF4338;
-    height: 25px;
-    width: 25px;
-    border-radius: 100%;
-    background: #FF4338;
-    cursor: pointer;
-    margin-top: -10px;
-    box-shadow: 2px 2px 0 #000, -2px -2px 0 #000;
+  -webkit-appearance: none;
+  border: 1px solid #FF4338;
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  background: #FF4338;
+  cursor: pointer;
+  margin-top: -10px;
+  box-shadow: 2px 2px 0 #000, -2px -2px 0 #000;
 }
 input[type=range].progress::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: #3071a9;
-    border-radius: 3px;
-    border: 0.2px solid #010101;
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #3071a9;
+  border-radius: 3px;
+  border: 0.2px solid #010101;
 }
 </style>

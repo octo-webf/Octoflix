@@ -38,7 +38,7 @@ export default {
   width: 90px;
   font-size: 0.8em;
   padding: 0.5em 0;
- 
+
 }
 .img-wrapper {
   height: 84px;
@@ -64,7 +64,6 @@ img {
   text-decoration: none;
 }
 @media only screen and (min-width: 1024px) {
-
   .image-category {
     max-height: 120px;
     max-width: 120px;
@@ -74,8 +73,8 @@ img {
     width: 120px;
   }
   .category-title {
-  width: 126px;
-  font-size: 1.2em;
+    width: 126px;
+    font-size: 1.2em;
   }
 }
 </style>
