@@ -57,21 +57,24 @@ export default {
   background-color: white;
   background-color: rgba(255,255,255,0.2);
   position: relative;
-  border: 10px solid transparent;
+  border: 10px solid rgba(255,255,255,0.2);
   border-radius: 15px;
   margin: 10px;
 }
-.category-link:hover .category-title {
+.category-link:focus {
+  outline: none
+}
+.category-link:hover .category-title, .category-link:focus .category-title {
   transition: all 0.5s ease;
   color: white;
   font-size: 1.35em;
   overflow: hidden;
 }
-.category-link:hover img {
+.category-link:hover img, .category-link:focus img {
   transition: all 0.5s ease;
   filter: invert(100%);
 }
-.category-link:hover .img-wrapper {
+.category-link:hover .img-wrapper, .category-link:focus .img-wrapper {
   transition: all 0.5s ease;
   border: 20px solid #00AFCB;
   margin: 0;

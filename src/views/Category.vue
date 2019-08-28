@@ -1,12 +1,15 @@
 <template>
   <div>
     <article v-for="video in videos" :key="video.oid">
-      <router-link :to="{ name: 'video', params: { videoId: video.oid } }">
+      <router-link :to="{ name: 'video', params: { videoId: video.oid } }" class="shortcut-container">
+        <div class="">
         <figure>
           <img :src="video.thumb" :alt="video.title">
-          <figcaption>{{ video.title }}</figcaption>
           <progress :max="convertVideoTime(video.duration)" :value="localVideos && localVideos[video.oid] && Math.abs(localVideos[video.oid].time)"></progress>
+          <figcaption> <span class="fig-title"> {{video.title }}</span></figcaption></figcaption>
         </figure>
+        </div>
+
       </router-link>
     </article>
   </div>
@@ -49,25 +52,41 @@ progress[value]::-webkit-progress-value {
   background: #e50914;
 }
 article {
+  border-radius: 15px;
   display: inline-block;
   position: relative;
-  margin: 30px;
+  margin: 3vw;
+  background-color: rgba(51,80,118,0.8);
+  
 }
 figure {
   display: inline-block;
   margin: 0;
 }
 img {
-  width: 240px;
+  width: 100%;
 }
 figcaption {
-  overflow: hidden;
-  position: absolute;
-  top: 15%;
-  padding: 5px 30px;
   color: white;
-  background-color: rgba(1,1,1,0.8);
-  width: 180px;
+  width: 100%;
   text-align: center;
+}
+.fig-title {
+  display: block;
+  padding: 5px;
+}
+.shortcut-container {
+  height: 20vw;
+  min-height: 25vh;
+  max-height: 250px;
+  display: block;
+  width: 15vw;
+  min-width: 25vh;
+  border: 4px solid rgba(255,255,255,0.5);
+  border-radius: 15px;
+  overflow: hidden;
+}
+.shortcut-container:hover {
+  border: 4px solid rgba(255,255,255,1);
 }
 </style>
