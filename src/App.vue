@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="true" class="before-content">
+    <div v-if="isHome" class="before-content">
       <div class="headlogo">
         <img src="./assets/headerLogo.png"/>
       </div>
@@ -9,6 +9,7 @@
         <p>Que souhaitez vous regarder maintenant ?</p>
       </div>
     </div>
+    <nav-bar v-else></nav-bar>
     <div v-if="this.getCategoryName" class="headline">{{this.getCategoryName}}</div>
     <router-view/>
   </div>
@@ -30,6 +31,9 @@ export default {
     getCategoryName () {
       const category = octotvServices.getCategoryInformations(this.categoryId)
       return category && category.name
+    },
+    isHome () {
+      return this.$route && this.$route.name === 'home'
     }
   },
   beforeMount () {
@@ -52,7 +56,7 @@ html{
   background-repeat: no-repeat;
   background-position: -70vh 20vh;
   background-size: 160vh;
-  
+
 }
 header {
   z-index: 100;
@@ -88,21 +92,21 @@ header {
   text-align: center;
   margin: 1em auto;
 }
-  .abstract-text p{
-    margin-block-end: 0;
-    margin-block-start: 0.5em;
-  }
-  .abstract-text {
-    color: #00AFCB;
-    font-weight: bolder;
-    text-shadow: 1px 0 #00AFCB;
-    letter-spacing:1px;
-    font-size: 1.3em;
-    line-height: 1em;
-    width: 60%;
-    margin: auto;
-  }
-  .before-content{
-    margin-bottom: 5vh;
-  }
+.abstract-text p{
+  margin-block-end: 0;
+  margin-block-start: 0.5em;
+}
+.abstract-text {
+  color: #00AFCB;
+  font-weight: bolder;
+  text-shadow: 1px 0 #00AFCB;
+  letter-spacing: 1px;
+  font-size: 1.3em;
+  line-height: 1em;
+  width: 60%;
+  margin: auto;
+}
+.before-content{
+  margin-bottom: 5vh;
+}
 </style>

@@ -3,10 +3,10 @@
     <article v-for="video in videos" :key="video.oid">
       <router-link :to="{ name: 'video', params: { videoId: video.oid } }" class="shortcut-container">
         <div class="">
-        <figure>
+        <figure class="growsandstays">
           <img :src="video.thumb" :alt="video.title">
           <progress :max="convertVideoTime(video.duration)" :value="localVideos && localVideos[video.oid] && Math.abs(localVideos[video.oid].time)"></progress>
-          <figcaption> <span class="fig-title"> {{video.title }}</span></figcaption></figcaption>
+          <figcaption> <span class="fig-title"> {{video.title }}</span></figcaption>
         </figure>
         </div>
 
@@ -57,7 +57,7 @@ article {
   position: relative;
   margin: 3vw;
   background-color: rgba(51,80,118,0.8);
-  
+
 }
 figure {
   display: inline-block;
@@ -88,5 +88,17 @@ figcaption {
 }
 .shortcut-container:hover {
   border: 4px solid rgba(255,255,255,1);
+}
+@keyframes grow {
+  0% { widht: inherit; height: inherit; margin: inherit}
+  60% { width: 30vw; height: 30vh; margin: 0 }
+  100% { width: 30vw; height: 30vh; margin: 0; opacity: 0.2}
+}
+//@TODO : remplacer par le click
+.shortcut-container:focus {
+  border: 4px solid rgba(255,255,255,1);
+  animation-name: grow;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 </style>

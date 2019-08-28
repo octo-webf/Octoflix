@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link to="/">Parcourir</router-link>
+    <router-link to="/">OctoVHS</router-link>
     <router-link v-if="categoryId" :to="{ name: 'category', params: { categoryId: categoryId } }" class="category-link">{{categoryName}}</router-link>
     <span class="notification-logo" @click="initializeNotifications()">✉</span>
   </nav>
@@ -65,6 +65,11 @@ export default {
 </script>
 
 <style scoped>
+nav {
+  font-size: 2em;
+  text-align: left;
+  margin: 5vh 10vw;
+}
 nav a {
   font-weight: bold;
   font-size: 1.2em;

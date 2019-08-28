@@ -81,6 +81,7 @@ export default {
   background-color: #00AFCB;
 }
 img {
+
   /*
   Allignement vertical et horizontal pour des images de tailles différentes
   */
@@ -96,7 +97,6 @@ img {
   text-decoration: none;
 }
 @media only screen and (min-width: 1024px) {
-
   .category-title {
     font-size: 1.2em;
   }
