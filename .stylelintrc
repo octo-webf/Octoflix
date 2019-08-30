@@ -9,6 +9,6 @@
     "indentation": 2,
     "max-empty-lines": 1,
     "rule-empty-line-before": [ "never"],
-    "unit-whitelist": ["em", "%", "px", "vw", "deg"]
+    "unit-whitelist": ["em", "%", "px", "vw", "vh", "s"]
   }
 }

@@ -1,4 +1,4 @@
-# octoflix
+# octoVHS
 
 ## Project setup
 ```

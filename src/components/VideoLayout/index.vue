@@ -33,16 +33,22 @@ export default {
             @click="$emit('preview')"
             data-test="preview-button"
             >
-            ➔
+            <div id="firstTop">
+                {{title}}
+            </div>
+            <div id="secondTop">
+                <img alt="play" src="../../assets/pictos/back.svg">
+                Retour
+            </div>
         </div>
         <div
             id="playing_overlay"
             @click="$emit('playOrPause')"
             class="clickable"
             data-test="playable-main-button"
-            v-if="!playing"
+            :class="{ display: !playing }"
             >
-            ►
+            <img alt="play" src="../../assets/pictos/circle-play.svg">
         </div>
         <nav id="bottom_overlay">
             <span class="timer">{{infos && Math.round(infos.currentTime)}}/{{infos && Math.round(this.video.duration)}}</span>
@@ -66,34 +72,34 @@ export default {
                     @click="$emit('playOrPause')"
                     data-test="playable-button"
                 >
-                    <span v-if="!playing">►</span>
-                    <span v-else>▌▌</span>
+                    <img v-if="!playing" alt="play" src="../../assets/pictos/play.svg">
+                    <img v-else alt="pause" src="../../assets/pictos/pause.svg">
                 </li>
                 <li
                 class="clickable"
                 @click="$emit('moveTime', -10)"
                 data-test="back-time-button"
                 >
-                    ⟲
+                    <img alt="rewind" src="../../assets/pictos/rewind.svg">
                 </li>
                 <li
                     class="clickable"
                     @click="$emit('moveTime', 10)"
                     data-test="next-time-button"
                 >
-                    ⟳
+                    <img alt="forward" src="../../assets/pictos/forward.svg">
+
                 </li>
-                <li class="title-container">
-                    <span class="title" data-test="title-display">{{title}}</span>
-                </li>
+
                 <li
                     class="clickable"
                     @click="$emit('download')"
                     data-test="download-button"
                     >
-                    ⇩
+                    <img alt="play" src="../../assets/pictos/download.svg">
+
                 </li>
-                <li>🔊<input
+                <li class="clickable"><img alt="play" src="../../assets/pictos/volume.svg"><input
                 @keydown.prevent=""
                 type="range"
                 @change="$emit('volumeChange', currentVolume)"
@@ -108,8 +114,8 @@ export default {
                     @click="$emit('changeScreenSize')"
                     data-test="screen-change-button"
                 >
-                    <span v-if="fullScreened">⇱</span>
-                    <span v-else>⇲</span>
+                    <span v-if="fullScreened"><img alt="play" src="../../assets/pictos/minimise-screen.svg"></span>
+                    <span v-else><img alt="play" src="../../assets/pictos/full-screen.svg"></span>
                 </li>
             </ul>
         </nav>
@@ -136,41 +142,57 @@ li {
 }
 #bottom_overlay {
   font-size: 2em;
-  text-align: center;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  max-height: 100px;
+  height: 10vh;
+  overflow: hidden;
   padding: 10px;
-  line-height: 50px;
-  color: white;
   background-color: transparent;
   z-index: 300000;
 }
 #top_overlay {
-  transform: rotate(180deg);
-  color: white;
   position: absolute;
-  top: 0;
-  left: 15px;
-  font-size: 3em;
+  top: 5vh;
+  left: 2vw;
   z-index: 1000;
 }
+#firstTop {
+  display: block;
+  height: 10vh;
+  line-height: 3vh;
+  font-size: 2.5em;
+  font-weight: bolder;
+}
+#secondTop {
+  height: 5vh;
+  line-height: 5vh;
+  font-size: 1.5em;
+  color: #00AFCB;
+}
+#secondTop>img {
+  vertical-align: top;
+  height: 100%;
+}
 #playing_overlay {
-  font-size: 5em;
-  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 25%;
-  min-width: 100px;
-  max-width: 150px;
-  opacity: 0.6;
-  background-color: #000;
   z-index: 300000;
-  border: 5px solid white;
-  border-radius: 15%;
+}
+#playing_overlay.display {
+  visibility: visible;
+  opacity: 1;
+}
+#playing_overlay>img {
+  opacity: 0.9;
+  min-width: 15vw;
+  min-height: 15vh;
 }
 @media only screen and (min-width: 1024px) {
   #playing_overlay {
@@ -214,5 +236,8 @@ input[type=range].progress::-webkit-slider-runnable-track {
   background: #3071a9;
   border-radius: 3px;
   border: 0.2px solid #010101;
+}
+.clickable img {
+  width: 8vh;
 }
 </style>

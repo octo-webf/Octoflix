@@ -1,11 +1,12 @@
 <template>
   <div>
     <article v-for="video in videos" :key="video.oid">
-      <router-link :to="{ name: 'video', params: { videoId: video.oid } }">
-        <figure>
+      <router-link :to="{ name: 'video', params: { videoId: video.oid } }" class="shortcut-container">
+        <img alt="play" class="playHover" src="../assets/pictos/circle-play.svg">
+        <figure class="growsandstays">
           <img :src="video.thumb" :alt="video.title">
-          <figcaption>{{ video.title }}</figcaption>
           <progress :max="convertVideoTime(video.duration)" :value="localVideos && localVideos[video.oid] && Math.abs(localVideos[video.oid].time)"></progress>
+          <figcaption> <span class="fig-title"> {{video.title }}</span></figcaption>
         </figure>
       </router-link>
     </article>
@@ -49,25 +50,64 @@ progress[value]::-webkit-progress-value {
   background: #e50914;
 }
 article {
+  border-radius: 15px;
   display: inline-block;
   position: relative;
-  margin: 30px;
+  margin: 3vw;
+  background-color: rgba(51,80,118,0.8);
 }
 figure {
   display: inline-block;
   margin: 0;
 }
 img {
-  width: 240px;
+  width: 100%;
 }
 figcaption {
-  overflow: hidden;
-  position: absolute;
-  top: 15%;
-  padding: 5px 30px;
   color: white;
-  background-color: rgba(1,1,1,0.8);
-  width: 180px;
+  width: 100%;
   text-align: center;
+}
+.fig-title {
+  display: block;
+  padding: 5px;
+}
+.shortcut-container {
+  height: 20vw;
+  min-height: 25vh;
+  max-height: 250px;
+  display: block;
+  width: 15vw;
+  min-width: 25vh;
+  border: 4px solid rgba(255,255,255,0.5);
+  border-radius: 15px;
+  overflow: hidden;
+}
+.shortcut-container:hover, .shortcut-container:focus {
+  outline: none;
+  border: 4px solid rgba(255,255,255,1);
+}
+@keyframes grow {
+  0% { width: inherit; height: inherit; margin: inherit}
+  60% { width: 30vw; height: 30vh; margin: 0 }
+  100% { width: 30vw; height: 30vh; margin: 0; opacity: 0.2}
+}
+.playHover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 0;
+}
+.shortcut-container:hover .playHover, .shortcut-container:focus .playHover{
+  transition: all 0.5s ease;
+  width: 40%;
+}
+//@TODO : remplacer par le click
+.shortcut-container:focus {
+  border: 4px solid rgba(255,255,255,1);
+  animation-name: grow;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 </style>
