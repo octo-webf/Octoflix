@@ -175,7 +175,7 @@ export default {
         @click="changeOverlayVisibility()"
         class="full-screen"
         ref="video"
-        poster="../assets/background.png"
+        poster="../assets/chargement.gif"
         :src="getVideoURL()"
         ></video>
       </div>

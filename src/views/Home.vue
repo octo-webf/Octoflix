@@ -3,7 +3,7 @@
     <span v-for="category in categories" :key="category.oid">
       <router-link :to="{ name: 'category', params: { categoryId: category.oid } }" class="category-link">
         <div class="img-wrapper">
-          <img :src="category.thumb" :alt="category.title" class="image-category">
+          <img :src="getCategoryInformations(category.oid).img" :alt="category.title" class="image-category">
         </div>
         <div class="category-title">{{ category.title }}</div>
       </router-link>
@@ -19,6 +19,11 @@ export default {
   data () {
     return {
       categories: undefined
+    }
+  },
+  methods: {
+    getCategoryInformations (oid) {
+      return octotvServices.getCategoryInformations(oid)
     }
   },
   async created () {
@@ -54,7 +59,6 @@ export default {
   min-width: 80px;
   min-height: 80px;
   text-align: center;
-  background-color: white;
   background-color: rgba(255,255,255,0.2);
   position: relative;
   border: 10px solid rgba(255,255,255,0.2);
@@ -72,7 +76,6 @@ export default {
 }
 .category-link:hover img, .category-link:focus img {
   transition: all 0.5s ease;
-  filter: invert(100%);
 }
 .category-link:hover .img-wrapper, .category-link:focus .img-wrapper {
   transition: all 0.5s ease;

@@ -1,18 +1,24 @@
 <template>
   <nav>
-    <router-link to="/">OctoVHS</router-link>
+    <router-link to="/"><img class="minimal-logo" src="../assets/headerLogo.png"/></router-link>
     <router-link v-if="categoryId" :to="{ name: 'category', params: { categoryId: categoryId } }" class="category-link">{{categoryName}}</router-link>
-    <span class="notification-logo" @click="initializeNotifications()">✉</span>
+    <span v-if="false" class="notification-logo" @click="initializeNotifications()">✉</span>
   </nav>
 </template>
 
 <script>
 // import pushService from '../services/push'
+import octotvServices from '../services/octotv'
+
 export default {
   name: 'NavBar',
   computed: {
     categoryId () {
       return this.$route.params && this.$route.params.categoryId
+    },
+    categoryName () {
+      const category = octotvServices.getCategoryInformations(this.categoryId)
+      return category && category.name
     }
   },
   methods: {
@@ -59,14 +65,13 @@ export default {
         })
       })
     }
-  },
-  props: ['categoryName']
+  }
 }
 </script>
 
 <style scoped>
 nav {
-  font-size: 2em;
+  height: 2em;
   text-align: left;
   margin: 5vh 10vw;
 }
@@ -83,5 +88,9 @@ nav a.router-link-exact-active {
 .notification-logo {
   float: right;
   font-size: 2em;
+}
+.minimal-logo {
+  width: auto;
+  height: 1.5em;
 }
 </style>
