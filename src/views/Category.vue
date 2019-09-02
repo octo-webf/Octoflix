@@ -87,11 +87,6 @@ figcaption {
   outline: none;
   border: 4px solid rgba(255,255,255,1);
 }
-@keyframes grow {
-  0% { width: inherit; height: inherit; margin: inherit}
-  60% { width: 30vw; height: 30vh; margin: 0 }
-  100% { width: 30vw; height: 30vh; margin: 0; opacity: 0.2}
-}
 .playHover {
   position: absolute;
   top: 50%;
@@ -102,12 +97,5 @@ figcaption {
 .shortcut-container:hover .playHover, .shortcut-container:focus .playHover{
   transition: all 0.5s ease;
   width: 40%;
-}
-//@TODO : remplacer par le click
-.shortcut-container:focus {
-  border: 4px solid rgba(255,255,255,1);
-  animation-name: grow;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
 }
 </style>
