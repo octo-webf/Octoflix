@@ -25,6 +25,11 @@ yarn test
 yarn lint
 ```
 
+### Lint and fix files and fix
+```
+yarn lint --fix
+```
+
 ### Run your unit tests
 ```
 yarn test:unit
